@@ -1,0 +1,105 @@
+@import "tailwindcss";
+/* cache-bust-2 */
+
+/* Poppy design tokens — Direction v3 (see docs/decisions.md).
+   Warm paper/ink neutrals carry structural pages. The four light pastels
+   (blue, pink, yellow, purple) ARE the brand palette now — soft enough to
+   sit together on one site, with ink text throughout for contrast instead
+   of flipping text color per section. "dark" stays as a separate contrast
+   background for Multipacks, not tied to any one state. */
+
+:root {
+  --background: #fffbf5;
+  --foreground: #15120f;
+  --muted: #716b5c;
+  --line: #e8e1d2;
+  --surface: #f3ede0;
+
+  --wake: #fce89b; /* light yellow */
+  --wake-ink: #15120f;
+  --refuel: #d9c8f2; /* light purple */
+  --refuel-ink: #15120f;
+  --cool: #bfe3f6; /* light blue */
+  --cool-ink: #15120f;
+  --reset: #f7c9dd; /* light pink */
+  --reset-ink: #15120f;
+
+  --dark: #15120f;
+  --dark-ink: #fffbf5;
+  --pop: #fce89b;
+
+  /* Hero carousel only — true-to-product colors (matches what each drink
+     actually looks like), distinct from the softer brand pastels above. */
+  --hero-wake: #ff7a1a;
+  --hero-refuel: #8a5a3c;
+  --hero-cool: #ff3d7f;
+  --hero-reset: #d99a2b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+
+  --color-wake: var(--wake);
+  --color-wake-ink: var(--wake-ink);
+  --color-refuel: var(--refuel);
+  --color-refuel-ink: var(--refuel-ink);
+  --color-cool: var(--cool);
+  --color-cool-ink: var(--cool-ink);
+  --color-reset: var(--reset);
+  --color-reset-ink: var(--reset-ink);
+
+  --color-dark: var(--dark);
+  --color-dark-ink: var(--dark-ink);
+  --color-pop: var(--pop);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Announcement bar — one message, looping seamlessly. Pauses under
+   reduced motion so it reads as a static line instead. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 18s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Hero carousel text cross-fade on slide change. */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-fade-in {
+  animation: hero-fade-in 400ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-in {
+    animation: none;
+  }
+}
